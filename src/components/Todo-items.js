@@ -1,5 +1,7 @@
 import { useEvent, useRecompute } from 'use-cases/events/lib-events-hook'
 import { getFilteredItems } from 'use-cases/todo-items/srv-todo-items'
+import { showAll } from 'services/todo-filter/srv-todo-filter'
+import * as B from '@awerlogus/data-types/lib/predicate'
 import { TodoItem } from 'components/Todo-item'
 
 // SECTION Types
@@ -17,6 +19,7 @@ export function TodoItems ({ P }) {
   useEvent(P, 'todoItemAdded', recompute)
   useEvent(P, 'todoItemRemoved', recompute)
   useEvent(P, 'filterTypeChanged', recompute)
+  useEvent(P, 'todoItemDoneStatusChanged', B.then(B.not(showAll(P)), recompute))
 
   const items = getFilteredItems(P)()
 

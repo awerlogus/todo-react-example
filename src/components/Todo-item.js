@@ -1,5 +1,6 @@
 import { removeTodoItem, toggleItemDoneStatus } from 'use-cases/todo-items/srv-todo-items'
 import { useEvent, useRecompute } from 'use-cases/events/lib-events-hook'
+import { showAll } from 'services/todo-filter/srv-todo-filter'
 import * as B from '@awerlogus/data-types/lib/predicate'
 import * as O from '@awerlogus/data-types/lib/option'
 import assert from 'assert'
@@ -21,7 +22,9 @@ const numEqC = x => y => x === y
 export function TodoItem ({ P, id, n }) {
   const recompute = useRecompute()
 
-  useEvent(P, 'todoItemDoneStatusChanged', B.then(numEqC(id), recompute))
+  const shallRecompute = B.and(numEqC(id), showAll(P))
+
+  useEvent(P, 'todoItemDoneStatusChanged', B.then(shallRecompute, recompute))
 
   const item = P.getTodoItem(id)
 
