@@ -1,4 +1,4 @@
-import { addTodoItem, filterItems, isItemDone, setItemDoneStatus, toggleItemDoneStatus } from 'services/todo-items/srv-todo-items'
+import { addTodoItem, getFilteredItems, isItemDone, setItemDoneStatus, toggleItemDoneStatus } from 'services/todo-items/srv-todo-items'
 import { createTestTodoItemsAlgebra } from 'services/todo-items/test/alg-todo-items'
 import { defaultItemDoneStatus } from 'models/mdl-items'
 
@@ -28,7 +28,7 @@ describe('isItemDone function', () => {
   })
 })
 
-describe('filterItems function', () => {
+describe('getFilteredItems function', () => {
   it('must return all items if filter is \'all\'', () => {
     const P = createTestTodoItemsAlgebra({
       todoItemsRepository: new Map([
@@ -38,7 +38,7 @@ describe('filterItems function', () => {
       todoIdsRepository: 3,
     })
 
-    expect(filterItems(P)('all')).toMatchObject([
+    expect(getFilteredItems(P)('all')).toMatchObject([
       { id: 1, text: '1', done: false },
       { id: 2, text: '2', done: true },
     ])
@@ -53,7 +53,7 @@ describe('filterItems function', () => {
       todoIdsRepository: 3,
     })
 
-    expect(filterItems(P)('done')).toMatchObject([
+    expect(getFilteredItems(P)('done')).toMatchObject([
       { id: 2, text: '2', done: true },
     ])
   })
@@ -67,7 +67,7 @@ describe('filterItems function', () => {
       todoIdsRepository: 3,
     })
 
-    expect(filterItems(P)('undone')).toMatchObject([
+    expect(getFilteredItems(P)('undone')).toMatchObject([
       { id: 1, text: '1', done: false },
     ])
   })

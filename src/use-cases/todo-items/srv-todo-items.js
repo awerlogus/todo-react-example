@@ -1,5 +1,5 @@
-import { addTodoItem as runTodoItemAdd, filterItems, toggleItemDoneStatus as runItemDoneStatusToggle } from 'services/todo-items/srv-todo-items'
 import { clearTodoInput } from 'use-cases/todo-input/srv-todo-input'
+import * as SRV from 'services/todo-items/srv-todo-items'
 import * as F from '@awerlogus/data-types/lib/function'
 import * as Item from 'models/item'
 import assert from 'assert'
@@ -32,7 +32,7 @@ import assert from 'assert'
 // SECTION Queries
 
 /** @type {(P: Program) => () => ReadonlyArray<Item.Item>} */
-export const getFilteredItems = P => F.flow(P.getFilterType, filterItems(P))
+export const getFilteredItems = P => F.flow(P.getFilterType, SRV.getFilteredItems(P))
 
 // SECTION Commands
 
@@ -47,7 +47,7 @@ export const removeTodoItem = P => id => {
 
 /** @type {(P: Program) => (id: number) => void} */
 export const toggleItemDoneStatus = P => id => {
-  runItemDoneStatusToggle(P)(id)
+  SRV.toggleItemDoneStatus(P)(id)
 
   P.emit('todoItemDoneStatusChanged', id)
 }
@@ -60,7 +60,7 @@ export const addTodoItem = P => () => {
 
   if (text.length === 0) { return }
 
-  const id = runTodoItemAdd(P)(text)
+  const id = SRV.addTodoItem(P)(text)
 
   clearTodoInput(P)()
 

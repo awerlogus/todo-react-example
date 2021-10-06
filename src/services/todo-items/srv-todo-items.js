@@ -19,7 +19,7 @@ import assert from 'assert'
 export const isItemDone = P => F.flow(P.getTodoItem, O.mapC(Item.isDone))
 
 /** @type {(P: TodoItemsAlgebra) => (type: FilterType) => ReadonlyArray<Item.Item>} */
-export const filterItems = P => type => {
+export const getFilteredItems = P => type => {
   switch (type) {
     case 'all':
       return P.getTodoItems()
