@@ -1,3 +1,4 @@
+import * as O from '@awerlogus/data-types/lib/option'
 import assert from 'assert'
 
 // SECTION Types
@@ -19,7 +20,7 @@ const state = new Map()
 function setTodoItemProp (id, key, value) {
   const item = state.get(id)
 
-  assert(item !== undefined)
+  assert(O.isSome(item))
 
   item[key] = value
 }

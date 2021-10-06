@@ -1,3 +1,4 @@
+import * as O from '@awerlogus/data-types/lib/option'
 import assert from 'assert'
 
 // SECTION Types
@@ -29,7 +30,7 @@ export const createTestTodoItemsRepository = initItems => {
   function setTodoItemProp (id, key, value) {
     const item = items.get(id)
 
-    assert(item !== undefined)
+    assert(O.isSome(item))
 
     item[key] = value
   }
