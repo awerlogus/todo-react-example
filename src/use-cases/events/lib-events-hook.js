@@ -14,7 +14,6 @@ import { useEffect, useReducer } from 'react'
 
 /**  @type {<E extends keyof Events>(P: EventSystem, eventName: E, callback: Events[E], deps?: DependencyList) => any} */
 export function useEvent (P, eventName, callback, inputs = []) {
-
   useEffect(() => {
     const sym = P.on(eventName, callback)
 
