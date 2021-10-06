@@ -1,0 +1,23 @@
+.flex {
+    display: flex;
+}
+
+.flex-el-1 {
+    flex: 1
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.w-3 {
+    width: 33%;
+}
+
+.ml-2 {
+    margin-left: 20px;
+}
+
+.mb-2 {
+    margin-bottom: 20px;
+}
